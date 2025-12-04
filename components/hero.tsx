@@ -26,34 +26,63 @@ export default function HeroSection() {
     <section 
       ref={heroRef}
       aria-labelledby="hero-heading"
-      className="w-full bg-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden"
+      className="w-full bg-white pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Logo Section - Stacked on mobile */}
+        <div className="flex justify-center mb-6 sm:mb-8 md:hidden">
+          <div className="w-32 h-32">
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+                rotate: [0, 2, -2, 0],
+                y: [0, -2, 2, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+              }}
+              className="w-full h-full"
+            >
+              <Image
+                src="/images/logo.png"
+                alt="SPDY"
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+          </div>
+        </div>
+
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-<div className="absolute right-5 top-1/10 -translate-y-1/2 w-50 h-50 md:w-60 md:h-60">
-  <motion.div
-    animate={{
-      scale: [1, 1.05, 1],      // subtle scaling loop
-      rotate: [0, 2, -2, 0],    // smooth shaking
-      y: [0, -2, 2, 0],         // optional vertical float
-    }}
-    transition={{
-      duration: 3,
-      repeat: Infinity,
-      repeatType: "loop",
-      ease: "easeInOut",
-    }}
-    className="w-full h-full"
-  >
-    <Image
-      src="/images/logo.png"
-      alt="SPDY"
-      fill
-      className="object-contain"
-      priority
-    />
-  </motion.div>
-</div>
+          {/* Logo for desktop - positioned absolutely */}
+          <div className="hidden md:block absolute right-5 top-1/10 -translate-y-1/2 w-60 h-60">
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+                rotate: [0, 2, -2, 0],
+                y: [0, -2, 2, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+              }}
+              className="w-full h-full"
+            >
+              <Image
+                src="/images/logo.png"
+                alt="SPDY"
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+          </div>
 
 
 
@@ -62,7 +91,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-5xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight cursor-default pr-36 hero"
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight cursor-default md:pr-36 hero"
        >
             {'We Build Fast & Modern'.split('').map((letter, index) => (
               <motion.span
@@ -163,11 +192,11 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={controls}
             transition={{ delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row gap-4 items-center text-center justify-center"
+            className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center"
           >
             <button
               onClick={() => scrollTo('contact')}
-              className="group relative overflow-hidden bg-linear-to-r from-black to-gray-600 text-white px-8 py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-300 hover:shadow-lg hover:shadow-black/20 hover:-translate-y-0.5 hover:text-red-600 hero"
+              className="group relative overflow-hidden bg-linear-to-r from-black to-gray-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-300 hover:shadow-lg hover:shadow-black/20 hover:-translate-y-0.5 hover:text-red-600 hero w-full sm:w-auto"
               aria-label="Start a project with us"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
@@ -183,7 +212,7 @@ export default function HeroSection() {
             
             <button
               onClick={() => scrollTo('projects')}
-              className="group relative overflow-hidden bg-white border-2 border-gray-200 text-gray-800 px-8 py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-300 hover:shadow-md hover:border-gray-300 hover:-translate-y-0.5 hover:text-red-600 hero"
+              className="group relative overflow-hidden bg-white border-2 border-gray-200 text-gray-800 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-300 hover:shadow-md hover:border-gray-300 hover:-translate-y-0.5 hover:text-red-600 hero w-full sm:w-auto"
               aria-label="View our portfolio"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
