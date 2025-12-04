@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
+import { useState } from 'react';
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { 
@@ -24,10 +24,22 @@ const staggerContainer = {
 };
 
 export default function ContactSection() {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
+  
+  const handleSubmit = () =>{
+    if(name && email && message){
+      alert("Message sent successfully");
+    }
+  }
+
+
   const text = "Contact Us";
   return (
     <section id="contact" className="w-full py-24 bg-white">
@@ -77,16 +89,16 @@ export default function ContactSection() {
             </motion.a>
 
            <motion.a
-  href="tel:+25194502123"
-  variants={fadeIn}
-  className="group block cursor-pointer"
-  whileHover={{ x: 5 }}
-  transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
->
-  <p className="font-semibold text-gray-800 mb-1">Phone</p>
-  <p className="text-gray-600">+251 945 02123</p>
-  <div className="w-0 h-px bg-black group-hover:w-full transition-all duration-300"></div>
-</motion.a>
+              href="tel:+25194502123"
+              variants={fadeIn}
+              className="group block cursor-pointer"
+              whileHover={{ x: 5 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
+            >
+              <p className="font-semibold text-gray-800 mb-1">Phone</p>
+              <p className="text-gray-600">+251 945 02123</p>
+              <div className="w-0 h-px bg-black group-hover:w-full transition-all duration-300"></div>
+            </motion.a>
 
             <motion.div 
               variants={fadeIn}
@@ -118,7 +130,7 @@ export default function ContactSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <motion.div 
                 initial={{ opacity: 0, x: -10 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -128,8 +140,11 @@ export default function ContactSection() {
                 <input
                   type="text"
                   id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-2 border text-gray-700 border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200"
                   placeholder="Your name"
+                  required
                 />
               </motion.div>
               
@@ -142,8 +157,11 @@ export default function ContactSection() {
                 <input
                   type="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2 border text-gray-700 border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200"
                   placeholder="your.email@example.com"
+                  required
                 />
               </motion.div>
               
@@ -156,8 +174,11 @@ export default function ContactSection() {
                 <textarea
                   id="message"
                   rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-4 py-2 border text-gray-700 border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200"
                   placeholder="How can we help you?"
+                  required
                 ></textarea>
               </motion.div>
               

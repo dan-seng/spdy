@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   title: "SPDY-Software",
   description: "Daniel's website",
    icons: {
-    icon: "/images/logo.png", // path to your favicon
-    apple: "/images/logo.png", // optional, for iOS devices
-    shortcut: "/images/logo.png", // optional
+    icon: "/logo.png", // path to your favicon
+    apple: "/logo.png", // optional, for iOS devices
+    shortcut: "/logo.png", // optional
   },
 };
 
