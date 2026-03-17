@@ -1,115 +1,54 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Construction, AlertTriangle, Timer, Code, Wrench } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Construction, Terminal } from "lucide-react";
+
+const memes = [
+  "/memes/loading.gif",
+  "/memes/catTyping.gif",
+  "/memes/monkeyLaptop.gif",
+  "/memes/skeletonWaiting.gif",
+];
 
 export default function UnderDevelopment() {
-  const memes = [
-    "/memes/loading.gif",
-    "/memes/catTyping.gif",
-    "/memes/monkeyLaptop.gif",
-    "/memes/skeletonWaiting.gif",
-  ];
-
   return (
-    <section className="min-h-screen bg-white text-black flex flex-col items-center justify-center px-6 py-20 text-center">
+    <section className="section-shell flex min-h-screen items-center justify-center py-28">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.45 }}
+        className="glass-panel w-full max-w-4xl rounded-xl p-8 text-center"
       >
-        <div className="flex flex-col items-center gap-4 mb-8">
-          <Construction className="w-20 h-20" />
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight gech">
-            This Page Is Under Development
-          </h1>
+        <Construction className="mx-auto h-10 w-10 text-green-300" />
+        <h1 className="font-display mt-4 text-3xl font-semibold text-zinc-100 sm:text-4xl">Page Under Development</h1>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-zinc-300">
+          We are building this section with the same software-first quality used in our production projects.
+        </p>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {memes.map((src) => (
+            <div key={src} className="overflow-hidden rounded-lg border border-green-500/20">
+              <Image src={src} alt="development meme" width={500} height={260} className="h-36 w-full object-cover" />
+            </div>
+          ))}
         </div>
 
-        <p className="text-gray-700 max-w-xl mx-auto text-sm md:text-lg mb-12">
-          We're cooking something awesome for you. It's taking a little time...<br />
-          Developers be like:
-        </p>
+        <div className="mt-6 inline-flex items-center gap-2 rounded-md border border-green-500/25 bg-black/55 px-4 py-2 font-code text-xs text-green-300">
+          <Terminal className="h-4 w-4" />
+          shipping soon...
+        </div>
+
+        <div className="mt-7">
+          <Link
+            href="/"
+            className="inline-flex rounded-lg bg-green-500 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-black transition hover:bg-green-400"
+          >
+            Back Home
+          </Link>
+        </div>
       </motion.div>
-
-      {/* Meme Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-w-3xl mx-auto">
-        {memes.map((src, i) => (
-        <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            viewport={{ once: true }}
-            className="rounded-2xl overflow-hidden shadow-lg w-30 h-30 mx-auto"
-            >
-            <Image
-                src={src}
-                alt="meme"
-                width={140}
-                height={140}
-                className="object-cover w-full h-full"
-            />
-</motion.div>
-
-        ))}
-      </div>
-
-      {/* Icons Row */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex gap-8 justify-center mt-16 text-black"
-      >
-        <Timer className="w-10 h-10" />
-        <Code className="w-10 h-10" />
-        <Wrench className="w-10 h-10" />
-        <AlertTriangle className="w-10 h-10" />
-      </motion.div>
-
-      <p className="mt-6 text-gray-600 text-lg">
-        Hold tight — greatness is loading...
-      </p>
-
-      <motion.div
-      initial={{ scale: 0.8, rotate: -5 }}
-      animate={{ scale: 1, rotate: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 10,
-        delay: 0.1,
-      }}
-      className="inline-block"
-    >
-      <motion.button
-        whileHover={{
-          scale: 1.1,
-          rotate: [0, -3, 3, -3, 3, 0],
-          transition: { duration: 0.4 },
-        }}
-        whileTap={{ scale: 0.9, rotate: -10 }}
-        className="
-          px-6 py-3 
-          font-bold 
-          rounded-xl 
-          bg-yellow-300 
-          text-black 
-          border-2 border-black 
-          shadow-[3px_3px_0px_black] 
-          hover:shadow-[1px_1px_0px_black] 
-          transition-all 
-          duration-200
-          text-lg
-        "
-      >
-        <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank">
-          🚀 Click me Please 😂
-        </Link>
-      </motion.button>
-    </motion.div>
     </section>
   );
 }

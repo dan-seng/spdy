@@ -1,261 +1,68 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from "framer-motion";
+import CodeCards from "./CodeCards";
+import Techs from "./Techs";
 
 export default function HeroSection() {
-  const controls = useAnimation();
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    // Animate in when component mounts
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    });
-  }, [controls]);
-
-  const scrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section 
-      ref={heroRef}
-      aria-labelledby="hero-heading"
-      className="w-full bg-white pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden"
+    <section
+      id="overview"
+      className="relative overflow-hidden pb-20 pt-28 md:pb-28 md:pt-36 bg-linear-to-b from-black via-zinc-900 to-white/30"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Logo Section - Stacked on mobile */}
-        <div className="flex justify-center mb-6 sm:mb-8 md:hidden">
-          <div className="w-32 h-32">
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                rotate: [0, 2, -2, 0],
-                y: [0, -2, 2, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "easeInOut",
-              }}
-              className="w-full h-full"
-            >
-              <Image
-                src="/images/logo.png"
-                alt="SPDY"
-                fill
-                className="object-contain"
-                priority
-              />
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-          {/* Logo for desktop - positioned absolutely */}
-          <div className="hidden md:block absolute right-5 top-1/10 -translate-y-1/2 w-60 h-60">
-            <motion.div
-              animate={{
-                scale: [1, 1.05, 1],
-                rotate: [0, 2, -2, 0],
-                y: [0, -2, 2, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "easeInOut",
-              }}
-              className="w-full h-full"
-            >
-              <Image
-                src="/images/logo.png"
-                alt="SPDY"
-                fill
-                className="object-contain"
-                priority
-              />
-            </motion.div>
-          </div>
-
-
-
-          <motion.h1 
-            id="hero-heading"
-            initial={{ opacity: 0, y: 30 }}
-            animate={controls}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight cursor-default md:pr-36 hero"
-       >
-            {'We Build Fast & Modern'.split('').map((letter, index) => (
-              <motion.span
-                key={`text-${index}`}
-                className="inline-block relative bg-clip-text text-transparent bg-linear-to-r from-black to-gray-600"
-                initial={{ scale: 1 }}
-                whileHover={{ 
-                  scale: 1.4,
-                  transition: { 
-                    duration: 0.6, 
-                    ease: [0.16, 1, 0.3, 1],
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 15
-                  }
-                }}
-                whileTap={{ 
-                  scale: 0.9,
-                  transition: { 
-                    duration: 0.2,
-                    ease: [0.16, 1, 0.3, 1]
-                  }
-                }}
-              >
-                {letter === ' ' ? '\u00A0' : letter}
-              </motion.span>
-            ))}
-            {' '}
-          
-            <motion.span className="inline-block">
-              {'Digital Products'.split('').map((letter, index) => (
-                <motion.span
-                  key={`gradient-${index}`}
-                  className="inline-block relative bg-clip-text text-transparent bg-linear-to-r from-black to-gray-600"
-                  initial={{ scale: 1 }}
-                  whileHover={{ 
-                  scale: 1.4,
-                  transition: { 
-                    duration: 0.6, 
-                    ease: [0.16, 1, 0.3, 1],
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 15
-                  }
-                }}
-                whileTap={{ 
-                  scale: 0.9,
-                  transition: { 
-                    duration: 0.2,
-                    ease: [0.16, 1, 0.3, 1]
-                  }
-                }}
-                 
-                >
-                  {letter === ' ' ? '\u00A0' : letter}
-                </motion.span>
-              ))}
-              <motion.span
-                className="inline-block relative text-gray-900"
-                initial={{ scale: 1 }}
-                whileHover={{ 
-                  scale: 1.4,
-                  transition: { 
-                    duration: 0.4, 
-                    ease: [0.16, 1, 0.3, 1],
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 15
-                  }
-                }}
-                whileTap={{ 
-                  scale: 0.9,
-                  transition: { 
-                    duration: 0.2,
-                    ease: [0.16, 1, 0.3, 1]
-                  }
-                }}
-              >
-                .
-              </motion.span>
-            </motion.span>
-          </motion.h1>
-         <motion.div 
-  className="overflow-hidden whitespace-nowrap mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto md:mx-0"
->
-  <motion.p
-    initial={{ x: 0 }}
-    whileHover={{ x: "-100%" }} // move left on hover
-    transition={{ duration: 15, ease: "linear" }} // smooth linear scroll
-    className="inline-block hover:text-red-900 transition-colors duration-300"
-  >
-    SPDY helps businesses grow with high-quality websites, mobile apps,
-    and complete digital systems — crafted with clean code and modern tools.
-  </motion.p>
-</motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={controls}
-            transition={{ delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center"
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.35),rgba(99,102,241,0)_60%)] blur-2xl" />
+        <div className="absolute -bottom-48 right-[-140px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.3),rgba(56,189,248,0)_60%)] blur-2xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px] opacity-30" />
+      </div>
+      <div className="section-shell">
+        <div className="flex flex-col gap-12 items-center ">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
           >
-            <button
-              onClick={() => scrollTo('contact')}
-              className="group relative overflow-hidden bg-linear-to-r from-black to-gray-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-all duration-300 hover:shadow-lg hover:shadow-black/20 hover:-translate-y-0.5 hover:text-red-600 hero w-full sm:w-auto"
-              aria-label="Start a project with us"
+            <h1
+              className="font-display max-w-6xl text-center mt-5 text-6xl leading-[0.98] tracking-tight 
+                bg-linear-to-b from-white via-zinc-200 to-white/40 
+                bg-clip-text text-transparent 
+                sm:text-7xl lg:text-8xl"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  Start a Project
-                </span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
+              Build products people love.
+            </h1>
+            <p className=" mt-6 text-center max-w-6xl leading-relaxed text-zinc-300 font-code">
+              We design and develop modern websites, internal systems, and
+              high-performance apps for teams that ship fast.
+            </p>
+
+            <div className="mt-14 flex flex-wrap gap-3 items-center justify-center">
+              <a
+                href="#cta"
+                className="rounded-full bg-white px-6 py-5 text-xs font-semibold uppercase tracking-[0.24em] text-black transition hover:bg-zinc-200"
+              >
+                Download For Free
+              </a>
+              <a
+                href="#insights"
+                className="rounded-full border border-white/20 px-6 py-5 text-xs font-semibold uppercase tracking-[0.22em] text-white transition hover:border-white/40"
+              >
+                See Insights
+              </a>
+            </div>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs uppercase tracking-[0.25em] text-zinc-400">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+                Websites & platforms
               </span>
-              <span className="absolute inset-0 bg-linear-to-r from-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-            
-            <button
-              onClick={() => scrollTo('projects')}
-              className="group relative overflow-hidden bg-white border-2 border-gray-200 text-gray-800 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-all duration-300 hover:shadow-md hover:border-gray-300 hover:-translate-y-0.5 hover:text-red-600 hero w-full sm:w-auto"
-              aria-label="View our portfolio"
-            >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  View Our Work
-                </span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  ↗
-                </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.8)]" />
+                Systems & automation
               </span>
-              <span className="absolute inset-0 bg-linear-to-r from-black/5 to-black/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </button>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={controls}
-            transition={{ delay: 0.4 }}
-            className="mt-12 md:mt-16 relative "
-          >
-            <div className="absolute -inset-3 bg-linear-to-r from-blue-100 to-purple-100 rounded-2xl -z-10 blur-xl opacity-60"></div>
-           <div className="relative rounded-sm overflow-hidden shadow-xl w-full h-[650px] ">
-  {/* Image */}
-  <Image
-    src="/images/spdy.png"
-    alt="Modern digital products built by SPDY Tech"
-    width={1200}
-    height={650}
-    priority
-    className="w-full h-full object-cover transition-opacity duration-500 hover:opacity-0"
-    
-  />
-
-  {/* Video */}
-  <video
-    src="/videos/hero.webm"
-    autoPlay
-    muted
-    loop
-    className="absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 hover:opacity-100"
-  />
-</div>
-
+              <span className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_12px_rgba(139,92,246,0.8)]" />
+                Mobile & web apps
+              </span>
+            </div>
           </motion.div>
         </div>
       </div>

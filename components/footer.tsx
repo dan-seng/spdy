@@ -1,188 +1,123 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPhone, FaPaperPlane, FaInstagram, FaTelegram } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
-import { useState } from 'react';
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { FaGithub, FaInstagram, FaLinkedin, FaTelegram } from "react-icons/fa";
 
-const footerVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      when: "beforeChildren",
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 }
-  }
-};
-
-const socialLinks = [
-  { icon: <FaGithub />, url: "https://github.com/dan-seng", color: "hover:text-gray-200" },
-  { icon: <FaXTwitter />, url: "https://twitter.com/", color: "hover:text-gray-200" },
-  { icon: <FaLinkedin />, url: "https://linkedin.com/in/danielgidey", color: "hover:text-blue-400" },
-  { icon: <FaEnvelope />, url: "mailto:da16gi@gmail.com", color: "hover:text-green-400" },
-  { icon: <FaInstagram />, url: "https://instagram.com/_dan_el", color: "hover:text-red-400" },
-  { icon: <FaTelegram />, url: "https://t.me/living_guy", color: "hover:text-blue-400" },
-];
-
-const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Services", href: "#services" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" }
+const nav = [
+  { name: "Overview", href: "#overview" },
+  { name: "Insights", href: "#insights" },
+  { name: "Security", href: "#security" },
+  { name: "FAQ", href: "#faq" },
+  { name: "Privacy", href: "/privacy" },
+  { name: "Terms", href: "/terms" },
+  { name: "Cookies", href: "/cookies" },
 ];
 
 export default function Footer() {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-   if(email){
-    alert("Thanks for subscribing!")
-    setEmail("")
-   }else{  
-   } 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!email) {
+      return;
+    }
+    alert("Subscribed successfully.");
+    setEmail("");
   };
 
-
   return (
-    <footer className="bg-black text-white pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={footerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
-        >
-          {/* Brand Info */}
-          <motion.div variants={item} className="space-y-4">
-            <h2 className="text-2xl font-bold hero">SPDY</h2>
-            <p className="text-gray-400 hover:text-cyan-500 transition-all duration-300 hover:scale-105">
-              Fast, modern, and reliable solutions for your business needs.
-              We help you build amazing digital experiences.
-            </p>
-            <div className="flex space-x-4 mt-6">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-gray-400 ${social.color} text-xl transition-all duration-300 hover:scale-105`}
-                  whileHover={{ y: -3 }}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div variants={item} className="space-y-4">
-            <h3 className="text-lg font-semibold hero">Quick Links</h3>
-            <ul className="space-y-3">
-              {navLinks.map((link, index) => (
-                <motion.li
-                  key={index}
-                  variants={item}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                >
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-105 flex items-center">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div variants={item} className="space-y-4">
-            <h3 className="text-lg font-semibold hero">Contact Us</h3>
-            <ul className="space-y-4">
-              <motion.li 
-                className="flex items-start"
-                variants={item}
-              >
-                <FaMapMarkerAlt className="mt-1 mr-3 text-gray-400 flex-shrink-0" />
-                <span className="text-gray-400">Mekelle, Ethiopia</span>
-              </motion.li>
-              <motion.li 
-                className="flex items-center"
-                variants={item}
-              >
-                <FaEnvelope className="mr-3 text-gray-400" />
-                <a href="mailto:da16gi@gmail.com" className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-105">
-                  da16gi@gmail.com
-                </a>
-              </motion.li>
-              <motion.li 
-                className="flex items-center"
-                variants={item}
-              >
-                <FaPhone className="mr-3 text-gray-400" />
-                <a href="tel:+25194502123" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  +251 945 02123
-                </a>
-              </motion.li>
-            </ul>
-          </motion.div>
-
-          {/* Newsletter */}
-          <motion.div variants={item} className="space-y-4">
-            <h3 className="text-lg font-semibold hero">Newsletter</h3>
-            <p className="text-gray-400">Subscribe to get updates on our latest projects and services.</p>
-            <form onSubmit={handleSubmit} className="mt-4">
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="px-4 py-2 w-full bg-gray-800 text-white focus:outline-none focus:ring-1 focus:ring-white/30 rounded-l-md"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-white text-black px-4 py-2 rounded-r-md hover:bg-gray-100 transition-colors duration-300 flex items-center"
-                >
-                  <FaPaperPlane className="mr-2" />
-                  <span>Subscribe</span>
-                </button>
+    <footer className="border-t border-white/10 bg-black/80 py-16">
+      <div className="section-shell space-y-16">
+        <section id="faq" className="space-y-6">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">FAQ</p>
+            <h2 className="font-display mt-4 text-3xl font-semibold text-white">Frequently asked questions</h2>
+            <p className="mt-3 text-zinc-400">Have another question? Reach out and we will respond in 24 hours.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              "What is Xeltrix?",
+              "How does Xeltrix protect my business?",
+              "Is Xeltrix suitable for small teams?",
+              "What kind of threats does Xeltrix prevent?",
+              "Can Xeltrix integrate with our stack?",
+              "How do I onboard my team?",
+            ].map((question) => (
+              <div key={question} className="faq-item rounded-xl px-5 py-4 text-sm text-zinc-300">
+                {question}
               </div>
-            </form>
-          </motion.div>
-        </motion.div>
+            ))}
+          </div>
+        </section>
 
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500 text-sm"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p>© {new Date().getFullYear()} SPDY. All rights reserved.</p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <a href="/privacy" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
-              <a href="/terms" className="hover:text-white transition-colors duration-300">Terms of Service</a>
-              <a href="/cookies" className="hover:text-white transition-colors duration-300">Cookies</a>
+        <section id="cta" className="cta-panel rounded-2xl px-8 py-10 text-center">
+          <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Growth</p>
+          <h3 className="font-display mt-4 text-3xl font-semibold text-white">Sell smarter with the CRM built for growth</h3>
+          <p className="mt-3 text-zinc-400">Manage leads, automate outreach, and close deals with intelligent workflows.</p>
+          <button className="mt-6 rounded-full bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-black">
+            Get Free Trial
+          </button>
+        </section>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          <div>
+            <h3 className="font-display text-2xl font-semibold text-zinc-100">SPDY Labs</h3>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-300">
+              Secure product platform built for modern teams with unified intelligence, workflows, and response.
+            </p>
+            <div className="mt-4 flex gap-4 text-zinc-300">
+              <a href="https://github.com/dan-seng" target="_blank" rel="noreferrer" className="transition hover:text-white">
+                <FaGithub />
+              </a>
+              <a href="https://linkedin.com/in/danielgidey" target="_blank" rel="noreferrer" className="transition hover:text-white">
+                <FaLinkedin />
+              </a>
+              <a href="https://instagram.com/_dan_el" target="_blank" rel="noreferrer" className="transition hover:text-white">
+                <FaInstagram />
+              </a>
+              <a href="https://t.me/living_guy" target="_blank" rel="noreferrer" className="transition hover:text-white">
+                <FaTelegram />
+              </a>
             </div>
           </div>
-        </motion.div>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-zinc-400">Sitemap</p>
+            <div className="mt-3 flex flex-col gap-2">
+              {nav.map((item) => (
+                <Link key={item.href} href={item.href} className="text-sm text-zinc-300 transition hover:text-white">
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-zinc-400">Newsletter</p>
+            <p className="mt-3 text-sm text-zinc-300">Get updates about launches, tooling, and security notes.</p>
+            <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@company.com"
+                className="w-full rounded-lg border border-white/10 bg-black/60 px-4 py-2.5 text-sm text-zinc-100 outline-none focus:border-white/30"
+                required
+              />
+              <button
+                type="submit"
+                className="rounded-lg bg-white px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-black transition hover:bg-zinc-200"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 pt-5 text-xs text-zinc-500">
+          © {new Date().getFullYear()} SPDY Labs. All rights reserved.
+        </div>
       </div>
     </footer>
   );

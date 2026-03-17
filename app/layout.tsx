@@ -1,31 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Figtree } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "SPDY-Software",
-  description: "Daniel's website",
-   icons: {
-    icon: "/logo.png", // path to your favicon
-    apple: "/logo.png", // optional, for iOS devices
-    shortcut: "/logo.png", // optional
+  description: "SPDY builds modern software, websites, and digital platforms.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logo.png",
   },
 };
 
 export const viewport = {
-  themeColor: "#000000",
+  themeColor: "#020202",
 };
-
 
 export default function RootLayout({
   children,
@@ -33,12 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en"scroll-behavior="smooth" >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >    
-        {children}
-      </body>
+    <html lang="en" className={cn("font-sans", figtree.variable)}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

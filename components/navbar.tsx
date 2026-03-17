@@ -1,51 +1,89 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Overview", href: "#overview" },
+  { label: "Insights", href: "#insights" },
+  { label: "Security", href: "#security" },
+  { label: "FAQ", href: "#faq" },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="w-full fixed top-0 left-0 bg-white/80 backdrop-blur-md z-50 border-b">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/">
-         <Image 
-         src="/images/logo.png"
-         alt="Logo"
-         width={70}
-         height={70}
-         className="pointer-cursor hover:scale-125 hover:translate-y-1 transition-all duration-400"
-         />
+    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/70 backdrop-blur-xl">
+      <nav className="section-shell max-w-5xl flex items-center justify-around gap-4 py-4">
+        <Link href="/" className="flex items-center justify-center">
+          <Image
+            src="/images/logo.png"
+            alt="SPDY logo"
+            width={70}
+            height={70}
+            priority
+          />
+          <span className="font-code text-3xl font-semibold tracking-wide text-zinc-300 hover:text-zinc-100">
+            SPDY
+          </span>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 text-red-800 font-bold links">
-          <Link href="#services" className=" hover:text-black hover:translate-y-1 hover:scale-125 transition-all duration-300 cursor-pointer">Services</Link>
-          <Link href="#projects" className=" hover:text-black hover:translate-x-1 hover:scale-125 transition-all duration-300 cursor-pointer">Projects</Link>
-          <Link href="#contact" className=" hover:text-black hover:translate-y-1 hover:scale-125 transition-all duration-300 cursor-pointer">Contact</Link>
+        <div className="hidden items-center gap-7 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-300 transition hover:text-white"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <div>
+          <a
+            href="#cta"
+            className=" font-body rounded-full border border-white/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white transition hover:border-white/40"
+          >
+            Register Now
+          </a>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-gray-700"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          className="rounded-lg border border-white/20 p-2 text-zinc-200 md:hidden"
         >
-          ☰
+          {open ? <X size={18} /> : <Menu size={18} />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden bg-white border-t">
-          <div className="flex flex-col gap-4 px-6 py-4 text-gray-700 links hover:text-black hover:translate-x-1 transition-all duration-300">
-            <Link href="#services">Services</Link>
-            <Link href="#projects">Projects</Link>
-            <Link href="#contact">Contact</Link>
+        <div className="section-shell pb-4 md:hidden">
+          <div className="glass-panel rounded-xl p-4">
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-300"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href="#cta"
+                className="mt-2 rounded-full border border-white/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white"
+              >
+                Register Now
+              </a>
+            </div>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }
